@@ -12,6 +12,13 @@ export default {
           900: '#0f172a',
           800: '#1e293b',
         },
+        light: {
+          secondary: '#94a3b8',
+        },
+      },
+      fontFamily: {
+        'oswald': ['Oswald', 'ui-sans-serif', 'system-ui', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'],
+        'body': ['Segoe UI', 'sans-serif'],
       },
     },
   },
