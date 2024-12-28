@@ -1,7 +1,7 @@
 export const formatDate = (timestamp: number): string => {
-  return new Date(timestamp * 1000).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric'
-  });
+  const date = new Date(timestamp * 1000);
+  const day = date.getDate();
+  const month = date.toLocaleString('en-US', { month: 'short' }).toUpperCase();
+  const year = date.getFullYear();
+  return `${day} ${month} ${year}`;
 };

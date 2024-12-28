@@ -25,9 +25,9 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-navy-950">
+    <div className="min-h-screen bg-main">
       <Header />
-      <div className="px-4 py-6 md:p-6">
+      <div className="px-4 pb-6">
         <div className="max-w-7xl mx-auto">
           <PlayerInfo2 player={player} />
           <MatchList matches={matches} />

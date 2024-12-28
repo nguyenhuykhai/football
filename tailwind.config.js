@@ -20,6 +20,10 @@ export default {
         'oswald': ['Oswald', 'ui-sans-serif', 'system-ui', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'],
         'body': ['Segoe UI', 'sans-serif'],
       },
+      backgroundColor: {
+        'dark-card': '#020c20',
+        'main': '#01040d'
+      }
     },
   },
   plugins: [],
