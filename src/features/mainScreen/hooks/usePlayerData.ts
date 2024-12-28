@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from './';
-import { fetchPlayerStart, fetchPlayerSuccess, fetchPlayerFailure } from '../store/slices/playerSlice';
+import { fetchPlayerStart, fetchPlayerSuccess, fetchPlayerFailure } from '../../../store/slices/playerSlice';
 import { fetchPlayer } from '../services/api';
 
 export const usePlayerData = () => {
@@ -14,6 +14,7 @@ export const usePlayerData = () => {
         const data = await fetchPlayer();
         dispatch(fetchPlayerSuccess(data));
       } catch (err) {
+        console.log(err);
         dispatch(fetchPlayerFailure('Failed to fetch player data'));
       }
     };

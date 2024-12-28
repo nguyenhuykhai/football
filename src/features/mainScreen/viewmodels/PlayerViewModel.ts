@@ -66,6 +66,7 @@ export function usePlayerViewModel() {
         setPlayer(response.data.player);
         setLoading(false);
       } catch (err) {
+        console.log(err);
         setError('Failed to fetch player data');
         setLoading(false);
       }

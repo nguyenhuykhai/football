@@ -1,8 +1,9 @@
+import ThemeToggle from "./ThemeToggle";
 
 const Header = () => {
   return (
     <header className="bg-gradient-to-r from-[#091557] via-[#122690] to-[#203397]">
-      <div className="max-w-7xl mx-auto flex items-center justify-between py-3">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 lg:px-auto py-3">
         <div className="flex items-center space-x-2 md:space-x-6">
           <img
             src="/assets/images/logo+hamburger.png"
@@ -26,7 +27,9 @@ const Header = () => {
           </div>
         </div>
 
-        <div className="flex items-center">
+        <div className="flex flex-1 items-center justify-end gap-1">
+          <ThemeToggle />
+
           <div
             aria-label="Login"
             className="flex h-9 w-9 cursor-pointer items-center justify-center bg-[#07124d] rounded-full text-dark-default hover:brightness-125"

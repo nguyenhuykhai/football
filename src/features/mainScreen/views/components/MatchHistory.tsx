@@ -1,8 +1,8 @@
 import React from 'react';
-import { Match } from '../types/player';
+import { MatchEvent } from '../../types/match';
 
 interface MatchHistoryProps {
-  matches: Match[];
+  matches: MatchEvent[];
 }
 
 export const MatchHistory: React.FC<MatchHistoryProps> = ({ matches }) => {

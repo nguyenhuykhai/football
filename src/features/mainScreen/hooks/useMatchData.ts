@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from './';
-import { fetchMatchesStart, fetchMatchesSuccess, fetchMatchesFailure } from '../store/slices/matchSlice';
+import { fetchMatchesStart, fetchMatchesSuccess, fetchMatchesFailure } from 'src/store/slices/matchSlice';
 import { fetchMatches } from '../services/api';
+import { useAppDispatch } from './useAppDispatch';
+import { useAppSelector } from './useAppSelector';
 
 export const useMatchData = () => {
   const dispatch = useAppDispatch();
@@ -14,6 +15,7 @@ export const useMatchData = () => {
         const data = await fetchMatches();
         dispatch(fetchMatchesSuccess(data));
       } catch (err) {
+        console.log(err);
         dispatch(fetchMatchesFailure('Failed to fetch match data'));
       }
     };

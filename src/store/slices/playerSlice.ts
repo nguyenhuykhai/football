@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Player } from '../../types/player';
+import { Player } from 'src/features/mainScreen/types/player';
 
 interface PlayerState {
   player: Player | null;

@@ -21,6 +21,7 @@ export function useMatchListViewModel() {
         setMatches(response.data.events);
         setLoading(false);
       } catch (err) {
+        console.log(err);
         setError('Failed to fetch match data');
         setLoading(false);
       }

@@ -1,6 +1,6 @@
 import React from 'react';
-import { MatchEvent } from '../types/match';
-import { formatDate } from '../utils/dateUtils';
+import { MatchEvent } from '../../types/match';
+import { formatDate } from '../../../../utils/dateUtils';
 
 interface MatchListProps {
   matches: MatchEvent[];
@@ -9,7 +9,7 @@ interface MatchListProps {
 export const MatchList: React.FC<MatchListProps> = ({ matches }) => {
   return (
     <div className="mt-6">
-      <h2 className="text-xl font-bold text-white mb-4">Match History</h2>
+      <h2 className="text-xl font-bold text-white mb-4">MATCHES</h2>
       <div className="space-y-3">
         {matches.map((match) => (
           <div key={match.id} className="bg-navy-800 rounded-lg p-3 md:p-4">

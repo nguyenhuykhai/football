@@ -1,39 +1,22 @@
-import Header from './components/Header';
-import { MatchList } from './components/MatchList';
-// import { PlayerInfo } from './components/PlayerInfo';
-import { PlayerInfo2 } from './components/PlayerInfo2';
-import { useMatchData, usePlayerData } from './hooks';
+import { ThemeProvider } from "src/theme/ThemeContext";
+import styled from "styled-components";
+import MainScreenPage from "src/features/mainScreen";
+
+const Container = styled.div`
+  background: ${({ theme }) => theme.primary};
+  color: ${({ theme }) => theme.text};
+  min-height: 100vh;
+  transition: all 0.3s ease;
+`;
 
 function App() {
-  const { player, loading: playerLoading, error: playerError } = usePlayerData();
-  const { matches, loading: matchesLoading, error: matchesError } = useMatchData();
-
-  if (playerLoading || matchesLoading) {
-    return <div className="min-h-screen bg-navy-950 flex items-center justify-center p-4">
-      <div className="text-white">Loading...</div>
-    </div>;
-  }
-
-  if (playerError || matchesError) {
-    return <div className="min-h-screen bg-navy-950 flex items-center justify-center p-4">
-      <div className="text-red-500">Error loading data</div>
-    </div>;
-  }
-
-  if (!player) {
-    return null;
-  }
 
   return (
-    <div className="min-h-screen bg-main">
-      <Header />
-      <div className="px-4 pb-6">
-        <div className="max-w-7xl mx-auto">
-          <PlayerInfo2 player={player} />
-          <MatchList matches={matches} />
-        </div>
-      </div>
-    </div>
+    <ThemeProvider>
+      <Container>
+        <MainScreenPage />
+      </Container>
+    </ThemeProvider>
   );
 }
 

@@ -4,8 +4,16 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
+      stroke: {
+        'light-secondary': '#AAA',
+        'dark-secondary': '#FFF'
+      },
+      borderColor: {
+        'dark-time-tennis': '#272a31'
+      },
       colors: {
         navy: {
           950: '#0a0f1c',
@@ -22,7 +30,8 @@ export default {
       },
       backgroundColor: {
         'dark-card': '#020c20',
-        'main': '#01040d'
+        'dark-main': '#01040d',
+        'light-main': '#ecf1f5'
       }
     },
   },
