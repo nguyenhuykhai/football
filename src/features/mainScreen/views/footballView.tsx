@@ -1,8 +1,8 @@
 import Header from "../../../common/components/Header";
 import { useMatchData, usePlayerData } from "../hooks";
-import { MatchHistory2 } from "./components/MatchHistory2";
-// import { MatchList } from "./components/MatchList";
+import { MatchHistory } from "./components/MatchHistory";
 import { PlayerInfo } from "./components/PlayerInfo";
+import { TransferValue } from "./components/TransferValue";
 
 function FootballView() {
   const {
@@ -46,7 +46,8 @@ function FootballView() {
       <div className="px-0 md:px-4 pb-6">
         <div className="max-w-7xl mx-auto">
           <PlayerInfo player={player} />
-          <MatchHistory2 matches={matches} />
+          <TransferValue />
+          <MatchHistory matches={matches} />
         </div>
       </div>
     </div>
