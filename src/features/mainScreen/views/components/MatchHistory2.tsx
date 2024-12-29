@@ -2,6 +2,7 @@ import React from "react";
 import { MatchEvent } from "../../types/match";
 import { formatDateAndMonth } from "src/utils/dateUtils";
 import CustomCard from "./CustomCard";
+import CustomScore from "./CustomScore";
 
 interface MatchHistoryProps {
   matches: MatchEvent[];
@@ -9,7 +10,7 @@ interface MatchHistoryProps {
 
 export const MatchHistory2: React.FC<MatchHistoryProps> = ({ matches }) => {
   return (
-    <div className="w-full">
+    <div className="w-full p-2 md:px-0">
       <h2 className="text-base md:text-lg font-semibold mb-2 md:mb-4 dark:text-white">MATCHES</h2>
       <div className="space-y-2">
         {matches.map((match, index) => (
@@ -33,7 +34,7 @@ export const MatchHistory2: React.FC<MatchHistoryProps> = ({ matches }) => {
                     className="h-full w-full object-contain"
                   />
                 </div>
-                <span className="text-sm md:text-base dark:text-white truncate">{match.homeTeam.name}</span>
+                <span className="text-sm md:text-base dark:text-white truncate max-w-[20ch] md:max-w-[40ch]">{match.homeTeam.name}</span>
               </div>
               <div className="flex items-center space-x-2">
                 <div className="w-4 h-4 md:w-5 md:h-5">
@@ -43,43 +44,12 @@ export const MatchHistory2: React.FC<MatchHistoryProps> = ({ matches }) => {
                     className="h-full w-full object-contain"
                   />
                 </div>
-                <span className="text-sm md:text-base dark:text-white truncate">{match.awayTeam.name}</span>
+                <span className="text-sm md:text-base dark:text-white truncate max-w-[20ch] md:max-w-[40ch]">{match.awayTeam.name}</span>
               </div>
             </div>
 
             {/* Scores section */}
-            <div className="flex items-center space-x-2 md:space-x-3">
-              <div className="flex flex-col space-y-2">
-                <span className="w-5 h-5 md:w-6 md:h-6 flex items-center justify-center bg-blue-500 text-white rounded text-sm md:text-base">
-                  {match.homeScore.display}
-                </span>
-                <span className="w-5 h-5 md:w-6 md:h-6 flex items-center justify-center bg-blue-500 text-white rounded text-sm md:text-base">
-                  {match.awayScore.display}
-                </span>
-              </div>
-
-              {match.winnerCode && (
-                <span className="px-1.5 py-0.5 md:px-2 md:py-1 text-[10px] md:text-xs text-white bg-orange-500 rounded">
-                  8.2
-                </span>
-              )}
-
-              <button className="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
-                <svg
-                  className="w-4 h-4 md:w-5 md:h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-              </button>
-            </div>
+            <CustomScore match={match} />
           </CustomCard>
         ))}
       </div>

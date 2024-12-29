@@ -31,7 +31,8 @@ export default {
       backgroundColor: {
         'dark-card': '#020c20',
         'dark-main': '#01040d',
-        'light-main': '#ecf1f5'
+        'light-main': '#ecf1f5',
+        'win-score': '#2187E5',
       }
     },
   },
