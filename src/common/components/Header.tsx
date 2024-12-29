@@ -2,7 +2,7 @@ import ThemeToggle from "./ThemeToggle";
 
 const Header = () => {
   return (
-    <header className="bg-gradient-to-r from-[#091557] via-[#122690] to-[#203397]">
+    <header className="sticky top-0 z-50 bg-gradient-to-r from-[#091557] via-[#122690] to-[#203397]">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 lg:px-auto py-3">
         <div className="flex items-center space-x-2 md:space-x-6">
           <img

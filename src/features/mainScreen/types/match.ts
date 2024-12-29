@@ -1,9 +1,9 @@
 export interface MatchEvent {
   id: string;
   homeScore: Score;
-  awayScore: Score;
   tournament: Tournament;
   homeTeam: TeamBasic;
+  awayScore: Score;
   awayTeam: TeamBasic;
   status: Status;
   winnerCode: number;
@@ -35,10 +35,18 @@ interface Tournament {
   priority: number;
   name: string;
   slug: string;
-  category: {
-    name: string;
-    slug: string;
-    id: string;
-    flag?: string;
-  };
+  category: Category;
+}
+
+interface Category {
+  name: string;
+  slug: string;
+  id: string;
+  flag?: string;
+}
+
+interface Status {
+  code: number;
+  description: string;
+  type: string;
 }

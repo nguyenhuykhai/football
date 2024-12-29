@@ -1,6 +1,7 @@
 import Header from "../../../common/components/Header";
 import { useMatchData, usePlayerData } from "../hooks";
-import { MatchList } from "./components/MatchList";
+import { MatchHistory2 } from "./components/MatchHistory2";
+// import { MatchList } from "./components/MatchList";
 import { PlayerInfo } from "./components/PlayerInfo";
 
 function FootballView() {
@@ -45,7 +46,7 @@ function FootballView() {
       <div className="px-0 md:px-4 pb-6">
         <div className="max-w-7xl mx-auto">
           <PlayerInfo player={player} />
-          <MatchList matches={matches} />
+          <MatchHistory2 matches={matches} />
         </div>
       </div>
     </div>

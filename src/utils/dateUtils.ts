@@ -6,6 +6,13 @@ export const formatDate = (timestamp: number): string => {
   return `${day} ${month} ${year}`;
 };
 
+export const formatDateAndMonth = (timestamp: number): string => {
+  const date = new Date(timestamp * 1000);
+  const day = date.getDate();
+  const month = date.getMonth();
+  return `${day}/${month}`;
+};
+
 export const formatAge = (timestamp: number): string => {
   const date = new Date(timestamp * 1000);
   const age = new Date().getFullYear() - date.getFullYear();
