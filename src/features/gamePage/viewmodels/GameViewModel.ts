@@ -13,16 +13,16 @@ class GameViewModel {
   game: Game | null = null;
 
   initializeGame(playerNames: string[]): void {
-    // Tạo cầu thủ
-    this.players = playerNames.map((name, index) => {
+    const existingPlayers = this.players || [];
+    const newPlayers = playerNames.slice(existingPlayers.length).map((name, index) => {
       const defenseScore = getRandomInt(1, 5);
       const techniques: Technique[] = Array.from({ length: 5 }, () =>
         getRandomElement(TECHNIQUES)
       );
       return {
-        id: index,
+        id: existingPlayers.length + index,
         name,
-        jerseyNumber: index + 1,
+        jerseyNumber: existingPlayers.length + index + 1,
         defenseScore,
         techniques,
         isEliminated: false,
@@ -30,22 +30,30 @@ class GameViewModel {
         score: 0,
       };
     });
-
-    // Khởi tạo game
-    this.game = {
-      round: 0,
-      currentPlayer: null,
-      targetPlayer: null,
-      failedPlayer: null,
-      isFinished: false,
-    };
-  }
+  
+    this.players = [...existingPlayers, ...newPlayers];
+  
+    if (!this.game && this.players.length === 10) {
+      // Khởi tạo game nếu chưa tồn tại và đã có 10 cầu thủ
+      this.game = {
+        round: 0,
+        currentPlayer: null,
+        targetPlayer: null,
+        failedPlayer: null,
+        isFinished: false,
+      };
+    }
+  }  
 
   playRound(): void {
-    if (!this.game || this.game.isFinished) return;
-
+    if (!this.game) {
+      console.error("Game is not initialized");
+      return;
+    }
+    if (this.game.isFinished) return;
+  
     this.game.round += 1;
-
+  
     const currentPlayer = getRandomElement(
       this.players.filter((p) => !p.isEliminated)
     );
@@ -53,31 +61,50 @@ class GameViewModel {
       this.players.filter((p) => p.id !== currentPlayer.id && !p.isEliminated)
     );
     const techniqueUsed = getRandomElement(currentPlayer.techniques);
-
+  
     const success = calculatePassSuccess(
       targetPlayer.defenseScore,
       techniqueUsed.difficulty
     );
-
+  
     if (!success) {
-      currentPlayer.isEliminated = true;
-      currentPlayer.orderOfPenalty = this.game.round;
-      this.game.failedPlayer = currentPlayer;
+      const updatedPlayer = {
+        ...currentPlayer,
+        isEliminated: true,
+        orderOfPenalty: this.game.round,
+      };
+  
+      // Cập nhật danh sách cầu thủ
+      this.players = this.players.map((player) =>
+        player.id === currentPlayer.id ? updatedPlayer : player
+      );
+  
+      // Cập nhật failedPlayer trong game
+      this.game.failedPlayer = updatedPlayer;
     }
-
-    this.logs.push({
-      round: this.game.round,
-      playerFrom: currentPlayer,
-      playerTo: targetPlayer,
-      techniqueUsed,
-      isSuccessful: success,
-    });
-
+  
+    // Cập nhật logs (không thay đổi trực tiếp mảng)
+    this.logs = [
+      ...this.logs,
+      {
+        round: this.game.round,
+        playerFrom: currentPlayer,
+        playerTo: targetPlayer,
+        techniqueUsed,
+        isSuccessful: success,
+      },
+    ];
+  
+    console.log(this.logs);
+  
     // Kiểm tra kết thúc
     if (this.players.filter((p) => !p.isEliminated).length === 1) {
       this.game.isFinished = true;
     }
-  }
+  }  
 }
+// Tạo instance duy nhất
+const gameViewModel = new GameViewModel();
 
-export default GameViewModel;
+// Tái sử dụng ở mọi nơi
+export default gameViewModel;

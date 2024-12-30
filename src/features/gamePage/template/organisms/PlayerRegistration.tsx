@@ -4,8 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "src/store";
-import { addPlayer } from "src/store/slices/teamSlice";
-// import { goToStep } from "src/store/slices/gameSlice";
+import { initializePlayers } from "src/store/slices/teamSlice";
 import { Player } from "src/features/gamePage/types/Player";
 
 type FormValues = {
@@ -49,13 +48,17 @@ const PlayerRegistration: React.FC<{ onNextStep: () => void }> = ({ onNextStep }
     context: { players }, // Truyền danh sách cầu thủ vào context để dùng trong test validation
   });
 
-  // Xử lý thêm cầu thủ
+  const playerNames: string[] = players.map((p) => p.name);
+
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    if (players.length >= 10) return; // Ngăn thêm quá 10 cầu thủ
-    dispatch(addPlayer(data)); // Dispatch thêm cầu thủ vào Redux Store
-    reset(); // Reset form
-    if (players.length + 1 === 10) {
-      onNextStep(); // Chuyển sang bước tiếp theo khi đủ 10 cầu thủ
+    if (players.length >= 10) return;
+
+    const updatedPlayerNames = [...playerNames, data.name];
+    dispatch(initializePlayers(updatedPlayerNames)); // Gọi ViewModel qua Redux để cập nhật cầu thủ
+    reset();
+
+    if (updatedPlayerNames.length === 10) {
+      onNextStep(); // Chuyển bước
     }
   };
 

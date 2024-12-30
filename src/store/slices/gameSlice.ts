@@ -1,34 +1,41 @@
 // store/slices/gameSlice.ts
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { GameLog } from "src/features/gamePage/types/GameLog";
+import gameViewModel from "src/features/gamePage/viewmodels/GameViewModel";
 
 interface GameState {
-  currentStep: number; // Bước hiện tại: 1 - đăng ký, 2 - trò chơi, 3 - tổng kết
-  currentRound: number; // Lượt chơi hiện tại
+  currentStep: number;
+  currentRound: number;
+  logs: GameLog[]; // Lưu lịch sử vòng chơi
 }
 
 const initialState: GameState = {
-  currentStep: 1, // Bắt đầu ở bước đăng ký cầu thủ
-  currentRound: 1, // Bắt đầu từ lượt chơi đầu tiên
+  currentStep: 1, // Bước hiện tại
+  currentRound: 1, // Lượt chơi hiện tại
+  logs: [], // Lịch sử chơi
 };
 
 const gameSlice = createSlice({
   name: "game",
   initialState,
   reducers: {
-    goToStep(state, action: PayloadAction<number>) {
+    goToStep(state, action) {
       state.currentStep = action.payload;
     },
-    nextRound(state) {
-      if (state.currentRound < 10) {
-        state.currentRound += 1;
-      }
+    playRound(state) {
+      const playRoundBound = gameViewModel.playRound.bind(gameViewModel);
+      playRoundBound(); // Xử lý vòng chơi bằng ViewModel
+      state.currentRound = gameViewModel.game?.round || state.currentRound; // Cập nhật lượt
+      state.logs = gameViewModel.logs; // Cập nhật lịch sử
     },
     resetGame(state) {
+      gameViewModel.initializeGame([]); // Reset ViewModel
       state.currentStep = 1;
       state.currentRound = 1;
+      state.logs = [];
     },
   },
 });
 
-export const { goToStep, nextRound, resetGame } = gameSlice.actions;
+export const { goToStep, playRound, resetGame } = gameSlice.actions;
 export default gameSlice.reducer;
