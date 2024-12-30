@@ -1,6 +1,13 @@
 import classNames from "classnames";
+import { Player } from "../../types/player";
+import { formatNumber } from "src/utils/numberUtils";
 
-export const CustomLegend:React.FC<{className?: string}> = ({className}) => {
+interface CustomLegendProps {
+    className?: string;
+    player: Player;
+}
+
+export const CustomLegend:React.FC<CustomLegendProps> = ({className, player}) => {
   return (
     <div className={classNames("space-y-1 mt-2", className)}>
       <div className="flex items-center gap-2">
@@ -26,7 +33,7 @@ export const CustomLegend:React.FC<{className?: string}> = ({className}) => {
             Current player value
           </p>
           <p className="text-xs leading-5 font-medium dark:text-label">
-            11.6M $
+            {formatNumber(player.proposedMarketValueRaw.value)}M {player.proposedMarketValueRaw.currency}
           </p>
         </div>
       </div>

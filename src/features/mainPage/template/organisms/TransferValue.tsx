@@ -1,6 +1,12 @@
-import { CustomLegend, CustomTransferItem, CustomAreaChart, type CustomAreaChartProps } from "../molecules";
+import { Player } from "../../types/player";
+import {
+  CustomLegend,
+  CustomTransferItem,
+  CustomAreaChart,
+  type CustomAreaChartProps,
+} from "../molecules";
 
-export const TransferValue: React.FC = () => {
+export const TransferValue: React.FC<{ player: Player }> = ({ player }) => {
   const data: CustomAreaChartProps["data"] = [
     { time: "10", values: 0 },
     { time: "13", values: 0 },
@@ -22,9 +28,9 @@ export const TransferValue: React.FC = () => {
           TRANSFER VALUE
         </h2>
         <div className="w-full lg:w-3/4 h-60 rounded-md bg-gradient-to-b from-gray-800 to-blue-900">
-          <CustomAreaChart data={data} />
+          <CustomAreaChart data={data} player={player} />
         </div>
-        <CustomLegend className="mb-2 md:mb-4" />
+        <CustomLegend className="mb-2 md:mb-4" player={player} />
       </div>
 
       {/* Transfer History */}

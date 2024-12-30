@@ -44,7 +44,7 @@ const FootballTemplate: React.FC = () => {
       <div className="px-0 md:px-4 pb-6">
         <div className="max-w-7xl mx-auto">
           <PlayerInfo player={player} />
-          <TransferValue />
+          <TransferValue player={player}/>
           <MatchHistory matches={matches} />
         </div>
       </div>

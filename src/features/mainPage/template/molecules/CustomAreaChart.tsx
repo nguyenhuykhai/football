@@ -8,12 +8,15 @@ import {
   ResponsiveContainer,
   ReferenceLine,
 } from "recharts";
+import { Player } from "../../types/player";
+import { formatNumber } from "src/utils/numberUtils";
 
 export type CustomAreaChartProps = {
   data: { time: string; values: number }[];
+  player: Player;
 };
 
-export const CustomAreaChart: React.FC<CustomAreaChartProps> = ({ data }) => {
+export const CustomAreaChart: React.FC<CustomAreaChartProps> = ({ data, player }) => {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <AreaChart
@@ -32,7 +35,7 @@ export const CustomAreaChart: React.FC<CustomAreaChartProps> = ({ data }) => {
           vertical={false}
           stroke="rgba(255, 255, 255, 0.1)"
         />
-        <ReferenceLine y={22} stroke="#F6B500" strokeDasharray="3 3" />
+        <ReferenceLine y={formatNumber(player.proposedMarketValueRaw.value)} stroke="#F6B500" strokeDasharray="3 3" />
         <XAxis
           dataKey="time"
           axisLine={true}
