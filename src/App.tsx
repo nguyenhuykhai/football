@@ -1,6 +1,8 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "src/theme/ThemeContext";
 import styled from "styled-components";
-import MainPage from "src/features/mainPage";
+import MainPage from "./features/mainPage";
+import GamePage from "./features/gamePage";
 
 const Container = styled.div`
   background: ${({ theme }) => theme.primary};
@@ -10,11 +12,15 @@ const Container = styled.div`
 `;
 
 function App() {
-
   return (
     <ThemeProvider>
       <Container>
-        <MainPage />
+        <Router>
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/game" element={<GamePage />} />
+          </Routes>
+        </Router>
       </Container>
     </ThemeProvider>
   );
