@@ -6,7 +6,10 @@ interface CustomCardProps {
   children: React.ReactNode;
 }
 
-export default function CustomCard({ className = "", children }: CustomCardProps) {
+export const CustomCard: React.FC<CustomCardProps> = ({
+  className = "",
+  children,
+}) => {
   const { isDarkMode } = useTheme();
 
   const baseClasses = "transition-colors";
@@ -19,4 +22,4 @@ export default function CustomCard({ className = "", children }: CustomCardProps
       {children}
     </div>
   );
-}
+};

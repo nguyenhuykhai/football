@@ -1,6 +1,6 @@
 import { ThemeProvider } from "src/theme/ThemeContext";
 import styled from "styled-components";
-import MainScreenPage from "src/features/mainScreen";
+import MainPage from "src/features/mainPage";
 
 const Container = styled.div`
   background: ${({ theme }) => theme.primary};
@@ -14,7 +14,7 @@ function App() {
   return (
     <ThemeProvider>
       <Container>
-        <MainScreenPage />
+        <MainPage />
       </Container>
     </ThemeProvider>
   );

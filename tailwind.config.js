@@ -9,7 +9,7 @@ export default {
     extend: {
       stroke: {
         'light-secondary': '#AAA',
-        'dark-secondary': '#FFF'
+        'dark-secondary': '#FFF',
       },
       borderColor: {
         'dark-time-tennis': '#272a31'
@@ -23,6 +23,8 @@ export default {
         light: {
           secondary: '#94a3b8',
         },
+        label: '#8d8e92',
+        'dark-green': '#2ea76f'
       },
       fontFamily: {
         'oswald': ['Oswald', 'ui-sans-serif', 'system-ui', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'],

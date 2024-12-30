@@ -1,12 +1,14 @@
 import { MatchEvent } from "../../types/match";
 
-export default function CustomScore({
-  match,
-  className,
-}: {
+export type CustomScoreProps = {
   match: MatchEvent;
   className?: string;
-}) {
+};
+
+export const CustomScore: React.FC<CustomScoreProps> = ({
+  match,
+  className,
+}) => {
   const winningScoreStyle = "bg-win-score";
   const losingScoreStyle =
     "bg-gradient-to-r from-[#00289F] via-[#001F7B] to-[#091557]";
@@ -53,4 +55,4 @@ export default function CustomScore({
       </span>
     </div>
   );
-}
+};

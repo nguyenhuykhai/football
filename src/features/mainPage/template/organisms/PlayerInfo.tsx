@@ -1,8 +1,8 @@
 import React from "react";
-import { formatDate } from "../../../../utils/dateUtils";
-import { Player } from "../../types/player";
+import { formatDate } from "src/utils/dateUtils";
+import { Player } from "src/features/mainPage/types/player";
 import InfoCard from "src/common/components/InfoCard";
-import usePlayerInfoFields from "../../configs/usePlayerInfoFields";
+import usePlayerInfoFields from "src/features/mainPage/configs/usePlayerInfoFields";
 
 interface PlayerInfoProps {
   player: Player;

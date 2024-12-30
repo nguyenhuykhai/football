@@ -1,10 +1,8 @@
 import Header from "../../../common/components/Header";
 import { useMatchData, usePlayerData } from "../hooks";
-import { MatchHistory } from "./components/MatchHistory";
-import { PlayerInfo } from "./components/PlayerInfo";
-import { TransferValue } from "./components/TransferValue";
+import { MatchHistory, PlayerInfo, TransferValue } from "./organisms";
 
-function FootballView() {
+const FootballTemplate: React.FC = () => {
   const {
     player,
     loading: playerLoading,
@@ -54,4 +52,4 @@ function FootballView() {
   );
 }
 
-export default FootballView;
+export default FootballTemplate;
