@@ -1,30 +1,35 @@
 import ThemeToggle from "./ThemeToggle";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
     <header className="sticky top-0 z-50 bg-gradient-to-r from-[#091557] via-[#122690] to-[#203397]">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 lg:px-auto py-3">
         <div className="flex items-center space-x-2 md:space-x-6">
-          <img
-            src="/assets/images/logo+hamburger.png"
-            alt="Uniscore Logo"
-            className="h-6 md:h-10 cursor-pointer"
-          />
+          <Link to="/">
+            <img
+              src="/assets/images/logo+hamburger.png"
+              alt="Uniscore Logo"
+              className="h-6 md:h-10 cursor-pointer"
+            />
+          </Link>
 
-          <div className="flex items-center gap-3 cursor-pointer hover:brightness-125">
-            <div className="h-[30px] md:h-[38px]">
-              <div className="h-full px-3 py-3 flex items-center gap-1 bg-gradient-to-r from-[#1553EF] via-[#0C3089] to-[#0C1A4C] rounded-full border border-[rgb(20,86,255)]">
-                <img
-                  src="/assets/images/Football-icon.svg"
-                  alt="Football Icon"
-                  className="h-4 md:h-6"
-                />
-                <span className="text-white text-xs font-medium font-['Oswald'] uppercase">
-                  football
-                </span>
+          <Link to="/game">
+            <div className="flex items-center gap-3 cursor-pointer hover:brightness-125">
+              <div className="h-[30px] md:h-[38px]">
+                <div className="h-full px-3 py-3 flex items-center gap-1 bg-gradient-to-r from-[#1553EF] via-[#0C3089] to-[#0C1A4C] rounded-full border border-[rgb(20,86,255)]">
+                  <img
+                    src="/assets/images/Football-icon.svg"
+                    alt="Football Icon"
+                    className="h-4 md:h-6"
+                  />
+                  <span className="text-white text-xs font-medium font-['Oswald'] uppercase">
+                    football
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
+          </Link>
         </div>
 
         <div className="flex flex-1 items-center justify-end gap-1">

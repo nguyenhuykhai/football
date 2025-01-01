@@ -27,12 +27,10 @@ const gameSlice = createSlice({
       playRoundBound();
     
       state.currentRound = gameViewModel.game?.round || state.currentRound;
-    
-      const newLog = gameViewModel.logs[gameViewModel.logs.length - 1];
-      state.logs = [...state.logs, newLog];
+      state.logs = gameViewModel.logs;
     },  
     resetGame(state) {
-      gameViewModel.initializeGame([]);
+      gameViewModel.resetAllFields();
       state.currentStep = 1;
       state.currentRound = 1;
       state.logs = [];
