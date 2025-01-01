@@ -3,17 +3,17 @@ import { Technique } from "src/features/gamePage/types/Technique";
 import { getRandomInt, getRandomTechniques } from "src/utils/random";
 
 export const TECHNIQUES: Technique[] = [
-    { name: "Neymar Rainbow Flick", difficulty: 6, usageCount: 0 },
-    { name: "El Tornado", difficulty: 6, usageCount: 0 },
-    { name: "Waka Waka", difficulty: 5, usageCount: 0 },
-    { name: "Sombrero Flick", difficulty: 5, usageCount: 0 },
-    { name: "Okocha Sombrero Flick", difficulty: 4, usageCount: 0 },
-    { name: "Bolasie Flick", difficulty: 4, usageCount: 0 },
-    { name: "Fake Pass", difficulty: 3, usageCount: 0 },
-    { name: "Ball Roll Chop", difficulty: 3, usageCount: 0 },
-    { name: "Ball Roll Cut", difficulty: 3, usageCount: 0 },
-    { name: "Ball Hop", difficulty: 2, usageCount: 0 },
-    { name: "Simple Rainbow", difficulty: 2, usageCount: 0 },
+    { name: "Neymar Rainbow Flick", slug: "SLG", difficulty: 6, usageCount: 0 },
+    { name: "El Tornado", slug: "ELT", difficulty: 6, usageCount: 0 },
+    { name: "Waka Waka", slug: "WKA", difficulty: 5, usageCount: 0 },
+    { name: "Sombrero Flick", slug: "SOM", difficulty: 5, usageCount: 0 },
+    { name: "Okocha Sombrero Flick", slug: "OSF", difficulty: 4, usageCount: 0 },
+    { name: "Bolasie Flick", slug: "BOL", difficulty: 4, usageCount: 0 },
+    { name: "Fake Pass", slug: "FPA", difficulty: 3, usageCount: 0 },
+    { name: "Ball Roll Chop", slug: "BRC", difficulty: 3, usageCount: 0 },
+    { name: "Ball Roll Cut", slug: "BRC", difficulty: 3, usageCount: 0 },
+    { name: "Ball Hop", slug: "BOP", difficulty: 2, usageCount: 0 },
+    { name: "Simple Rainbow", slug: "SRG", difficulty: 2, usageCount: 0 },
 ];
 
 export const TEAM_LIST: Player[] = [

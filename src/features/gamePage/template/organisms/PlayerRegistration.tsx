@@ -53,8 +53,8 @@ const PlayerRegistration: React.FC<{ onNextStep: () => void }> = ({ onNextStep }
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     if (players.length >= 10) return;
 
-    const updatedPlayerNames = [...playerNames, data.name];
-    dispatch(initializePlayers(updatedPlayerNames)); // Gọi ViewModel qua Redux để cập nhật cầu thủ
+    const updatedPlayerNames = [...playerNames, {name: data.name as string, jerseyNumber: data.jerseyNumber as number}];
+    dispatch(initializePlayers(updatedPlayerNames as {name: string, jerseyNumber: number}[])); // Gọi ViewModel qua Redux để cập nhật cầu thủ
     reset();
 
     if (updatedPlayerNames.length === 10) {
@@ -135,8 +135,11 @@ const PlayerRegistration: React.FC<{ onNextStep: () => void }> = ({ onNextStep }
               {players.length < 10 ? "Thêm cầu thủ" : "Đã đủ 10 cầu thủ"}
             </button>
           </form>
-          <button onClick={handleMockPlayers} className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none">
-            Mock players
+          <button onClick={handleMockPlayers} className="w-full bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600 
+              dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none disabled:opacity-50
+              disabled:cursor-not-allowed transition-colors"
+              disabled={players.length >= 10}>
+            Giả lập 10 cầu thủ
           </button>
         </div>
 

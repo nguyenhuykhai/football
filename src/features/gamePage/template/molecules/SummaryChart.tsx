@@ -19,6 +19,7 @@ interface SummaryChartProps {
 
 interface TechniqueStats {
   name: string;
+  slug: string;
   successful: number;
   failed: number;
   total: number;
@@ -37,6 +38,7 @@ const SummaryChart: React.FC<SummaryChartProps> = ({
       if (!acc[techniqueName]) {
         acc[techniqueName] = {
           name: techniqueName,
+          slug: log.techniqueUsed.slug,
           successful: 0,
           failed: 0,
           total: 0,
@@ -102,10 +104,9 @@ const SummaryChart: React.FC<SummaryChartProps> = ({
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis
                 dataKey="name"
-                tick={{ fontSize: 12 }}
+                tick={{ fontSize: 8 }}
                 interval={0}
-                angle={-45}
-                textAnchor="end"
+                textAnchor="middle"
                 height={60}
               />
               <YAxis tick={{ fontSize: 12 }} width={40} />

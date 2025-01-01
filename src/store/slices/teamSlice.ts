@@ -15,7 +15,7 @@ const teamSlice = createSlice({
   name: "team",
   initialState,
   reducers: {
-    initializePlayers(state, action: PayloadAction<string[]>) {
+    initializePlayers(state, action: PayloadAction<{name: string, jerseyNumber: number}[]>): void {
       gameViewModel.initializeGame(action.payload); // Dùng ViewModel để khởi tạo cầu thủ
       state.players = gameViewModel.players; // Cập nhật danh sách cầu thủ vào Redux
     },

@@ -11,11 +11,11 @@ class GameViewModel {
   logs: GameLog[] = [];
   game: Game | null = null;
 
-  private createPlayer(name: string, index: number, existingLength: number): Player {
+  private createPlayer(name: string, jerseyNumber: number, index: number, existingLength: number): Player {
     return {
       id: existingLength + index,
       name,
-      jerseyNumber: existingLength + index + 1,
+      jerseyNumber,
       defenseScore: getRandomInt(1, 5),
       techniques: getRandomTechniques(),
       isEliminated: false,
@@ -64,11 +64,11 @@ class GameViewModel {
     this.game.currentGhostPlayer = null;
   }
 
-  initializeGame(playerNames: string[]): void {
+  initializeGame(playerNames: {name: string, jerseyNumber: number}[]): void {
     const existingLength = this.players.length;
     const newPlayers = playerNames
       .slice(existingLength)
-      .map((name, index) => this.createPlayer(name, index, existingLength));
+      .map(({name, jerseyNumber}, index) => this.createPlayer(name, jerseyNumber, index, existingLength));
     
     this.players = [...this.players, ...newPlayers];
     if (!this.game && this.players.length === 10) {

@@ -40,9 +40,17 @@ const GamePlay: React.FC<{ onNextStep: () => void }> = ({ onNextStep }) => {
         <h1 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">
           Lượt chơi hiện tại: {currentRound}
         </h1>
-        <div className="flex justify-center gap-4">
+        <div className="flex flex-col sm:flex-row justify-center gap-4">
           <button
-            onClick={() => currentRound >= 10 ? onNextStep() : dispatch(playRound())}
+            onClick={() => onNextStep()}
+            className="px-6 py-2 bg-blue-600 dark:bg-blue-500 text-white rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors"
+          >
+            Quay lại
+          </button>
+          <button
+            onClick={() =>
+              currentRound >= 10 ? onNextStep() : dispatch(playRound())
+            }
             className="px-6 py-2 bg-blue-600 dark:bg-blue-500 text-white rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors"
           >
             {currentRound >= 10 ? "Kết thúc trò chơi" : "Tiếp tục lượt chơi"}
@@ -61,9 +69,7 @@ const GamePlay: React.FC<{ onNextStep: () => void }> = ({ onNextStep }) => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Player list */}
         <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-4 border border-gray-200 dark:border-gray-700">
-          <h2 className="text-xl font-bold mb-4">
-            Danh sách cầu thủ
-          </h2>
+          <h2 className="text-xl font-bold mb-4">Danh sách cầu thủ</h2>
           <div className="overflow-y-auto max-h-[600px] pr-2 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600">
             <ul className="space-y-2">
               {sortedPlayers.map((player, index) => (
@@ -111,9 +117,7 @@ const GamePlay: React.FC<{ onNextStep: () => void }> = ({ onNextStep }) => {
 
         {/* Round history */}
         <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-4 border border-gray-200 dark:border-gray-700">
-          <h2 className="text-xl font-bold mb-4">
-            Lịch sử lượt chơi
-          </h2>
+          <h2 className="text-xl font-bold mb-4">Lịch sử lượt chơi</h2>
           <div className="overflow-y-auto max-h-[600px] pr-2 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600">
             <div className="space-y-3">
               {roundSummaries.map((summary) => (
