@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "src/store";
-import { initializePlayers } from "src/store/slices/teamSlice";
+import { initializePlayers, mockPlayers } from "src/store/slices/teamSlice";
 import { Player } from "src/features/gamePage/types/Player";
 
 type FormValues = {
@@ -60,6 +60,11 @@ const PlayerRegistration: React.FC<{ onNextStep: () => void }> = ({ onNextStep }
     if (updatedPlayerNames.length === 10) {
       onNextStep(); // Chuyển bước
     }
+  };
+
+  const handleMockPlayers = () => {
+    dispatch(mockPlayers());
+    onNextStep();
   };
 
   return (
@@ -130,6 +135,9 @@ const PlayerRegistration: React.FC<{ onNextStep: () => void }> = ({ onNextStep }
               {players.length < 10 ? "Thêm cầu thủ" : "Đã đủ 10 cầu thủ"}
             </button>
           </form>
+          <button onClick={handleMockPlayers} className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none">
+            Mock players
+          </button>
         </div>
 
         {/* Danh sách cầu thủ */}
@@ -138,7 +146,7 @@ const PlayerRegistration: React.FC<{ onNextStep: () => void }> = ({ onNextStep }
             Danh sách cầu thủ:
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {players.map((player, index) => (
+            {players.length > 0 && players.map((player, index) => (
               <div
                 key={player.id}
                 className="p-4 border rounded bg-gray-50 dark:bg-gray-700 

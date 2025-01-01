@@ -7,12 +7,14 @@ import {
   Tooltip,
   ResponsiveContainer,
   ReferenceLine,
+  LabelList,
 } from "recharts";
 import { Player } from "../../types/player";
 import { formatNumber } from "src/utils/numberUtils";
+// import { CustomizedLabel } from "../atoms/CustomizedLabel";
 
 export type CustomAreaChartProps = {
-  data: { time: string; values: number }[];
+  data: { time: string; values: number; imageSrc: string; imageAlt: string }[];
   player: Player;
 };
 
@@ -21,7 +23,7 @@ export const CustomAreaChart: React.FC<CustomAreaChartProps> = ({ data, player }
     <ResponsiveContainer width="100%" height="100%">
       <AreaChart
         data={data}
-        margin={{ top: 20, right: 0, left: 30, bottom: 10 }}
+        margin={{ top: 30, right: 0, left: 30, bottom: 10 }}
       >
         <defs>
           <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
@@ -35,7 +37,11 @@ export const CustomAreaChart: React.FC<CustomAreaChartProps> = ({ data, player }
           vertical={false}
           stroke="rgba(255, 255, 255, 0.1)"
         />
-        <ReferenceLine y={formatNumber(player.proposedMarketValueRaw.value)} stroke="#F6B500" strokeDasharray="3 3" />
+        <ReferenceLine
+          y={formatNumber(player.proposedMarketValueRaw.value)}
+          stroke="#F6B500"
+          strokeDasharray="3 3"
+        />
         <XAxis
           dataKey="time"
           axisLine={true}
@@ -66,7 +72,22 @@ export const CustomAreaChart: React.FC<CustomAreaChartProps> = ({ data, player }
             fill: "#FFFFFF",
             fillOpacity: 1,
           }}
-        />
+        >
+          <LabelList
+            dataKey="imageSrc"
+            offset={5}
+            position="centerTop"
+            content={(entry) => (
+              <image
+                x={entry.x as number - 10}
+                y={entry.y as number - 35}
+                width={entry.width as number}
+                height={entry.height as number}
+                href={entry.value as string}
+              />
+            )}
+          />
+        </Area>
       </AreaChart>
     </ResponsiveContainer>
   );

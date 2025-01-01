@@ -24,12 +24,15 @@ const gameSlice = createSlice({
     },
     playRound(state) {
       const playRoundBound = gameViewModel.playRound.bind(gameViewModel);
-      playRoundBound(); // Xử lý vòng chơi bằng ViewModel
-      state.currentRound = gameViewModel.game?.round || state.currentRound; // Cập nhật lượt
-      state.logs = gameViewModel.logs; // Cập nhật lịch sử
-    },
+      playRoundBound();
+    
+      state.currentRound = gameViewModel.game?.round || state.currentRound;
+    
+      const newLog = gameViewModel.logs[gameViewModel.logs.length - 1];
+      state.logs = [...state.logs, newLog];
+    },  
     resetGame(state) {
-      gameViewModel.initializeGame([]); // Reset ViewModel
+      gameViewModel.initializeGame([]);
       state.currentStep = 1;
       state.currentRound = 1;
       state.logs = [];

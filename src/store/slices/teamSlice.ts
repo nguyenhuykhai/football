@@ -19,6 +19,10 @@ const teamSlice = createSlice({
       gameViewModel.initializeGame(action.payload); // Dùng ViewModel để khởi tạo cầu thủ
       state.players = gameViewModel.players; // Cập nhật danh sách cầu thủ vào Redux
     },
+    mockPlayers(state) {
+      gameViewModel.mockPlayers();
+      state.players = gameViewModel.players; // Cập nhật danh sách cầu thủ vào Redux
+    },
     resetPlayers(state) {
       gameViewModel.players = []; // Reset trong ViewModel
       state.players = []; // Reset trong Redux
@@ -26,5 +30,5 @@ const teamSlice = createSlice({
   },
 });
 
-export const { initializePlayers, resetPlayers } = teamSlice.actions;
+export const { initializePlayers, resetPlayers, mockPlayers } = teamSlice.actions;
 export default teamSlice.reducer;
