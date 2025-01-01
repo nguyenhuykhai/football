@@ -10,4 +10,5 @@ export type Player = {
   isEliminated: boolean; // Trạng thái bị loại
   orderOfPenalty: number | null; // Thứ tự bị phạt (null nếu chưa bị phạt)
   score: number; // Điểm tổng kết
+  isGhost: boolean; // Đã làm ghost
 };

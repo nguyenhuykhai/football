@@ -10,16 +10,15 @@ const GamePlay: React.FC<{ onNextStep: () => void }> = ({ onNextStep }) => {
   const logs = useSelector((state: RootState) => state.game.logs);
 
   // Danh sách cầu thủ
-  const players = gameViewModel.players;
+  const isFinished = gameViewModel.game?.isFinished;
+  const players = gameViewModel.players || [];
 
   // Xử lý nhấn nút tiếp tục hoặc kết thúc
   const handleNextRound = () => {
-    const activePlayers = players.filter((p) => !p.isEliminated);
-
-    if (activePlayers.length > 1) {
-      dispatch(playRound());
-    } else {
+    if (isFinished) {
       onNextStep();
+    } else {
+      dispatch(playRound());
     }
   };
 

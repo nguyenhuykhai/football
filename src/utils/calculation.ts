@@ -4,6 +4,6 @@ export const calculatePassSuccess = (
     techniqueScore: number
   ): boolean => {
     const defensiveRatio = defenseScore / (techniqueScore + defenseScore);
-    return Math.random() >= defensiveRatio; // Thành công nếu random >= defensiveRatio
+    return Math.random() < defensiveRatio ? true : false;
   };
   

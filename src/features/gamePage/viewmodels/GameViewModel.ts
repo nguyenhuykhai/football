@@ -26,6 +26,7 @@ class GameViewModel {
         isEliminated: false,
         orderOfPenalty: null,
         score: 0,
+        isGhost: false,
       };
     });
   
@@ -36,6 +37,7 @@ class GameViewModel {
         round: 0,
         currentPlayer: null,
         targetPlayer: null,
+        currentGhostPlayer: null,
         failedPlayer: null,
         isFinished: false,
       };
@@ -48,6 +50,7 @@ class GameViewModel {
       round: 0,
       currentPlayer: null,
       targetPlayer: null,
+      currentGhostPlayer: null,
       failedPlayer: null,
       isFinished: false,
     };
@@ -59,62 +62,167 @@ class GameViewModel {
       console.error("Game is not initialized");
       return;
     }
-    if (this.game.isFinished) return;
   
-    const availablePlayers = this.players.filter((p) => !p.isEliminated);
-    if (availablePlayers.length < 2) {
-      console.error("Không đủ cầu thủ để tiếp tục.");
+    // Kết thúc trò chơi sau 10 lượt
+    if (this.players.every((p: Player) => p.isGhost)) {
+      console.log("Tất cả cầu thủ đã làm ghost. Trò chơi kết thúc.");
       this.game.isFinished = true;
       return;
     }
   
-    this.game.round += 1;
-  
-    const currentPlayer = getRandomElement(availablePlayers);
-    const targetPlayer = getRandomElement(
-      availablePlayers.filter((p) => p.id !== currentPlayer.id)
-    );
-    const techniqueUsed = getRandomElement(currentPlayer.techniques);
-    console.log("Kỹ thuật sử dụng: ", techniqueUsed);
-  
-    const success = calculatePassSuccess(
-      targetPlayer.defenseScore,
-      techniqueUsed.difficulty
-    );
-  
-    if (!success) {
-      const updatedPlayer = {
-        ...currentPlayer,
-        isEliminated: true,
-        orderOfPenalty: this.game.round,
-      };
-  
-      this.players = this.players.map((player) =>
-        player.id === currentPlayer.id ? updatedPlayer : player
-      );
-  
-      this.game.failedPlayer = updatedPlayer;
+    // Tăng số vòng chơi (chỉ tăng khi bắt đầu vòng mới)
+    if (this.game.round < 10) {
+      this.game.round += 1;
     }
   
-    this.logs = [
-      ...this.logs,
-      {
-        round: this.game.round,
-        playerFrom: currentPlayer,
-        playerTo: targetPlayer,
-        techniqueUsed,
-        isSuccessful: success,
-      },
-    ];
+    // Chọn ghost
+    if (this.game.round === 1) { // Nếu là lượi chơi đầu tiên
+      this.game.currentGhostPlayer = getRandomElement(this.players);
+      this.game.currentGhostPlayer = {
+        ...this.game.currentGhostPlayer,
+        isGhost: true,
+        score: 10 - this.game.round
+      };
+
+      // Cập nhật điểm số của cầu thủ
+      this.players = this.players.map((p: Player) => {
+        if (this.game && p.id === this.game.currentGhostPlayer?.id) {
+          return {
+            ...p,
+            isGhost: true,
+            score: 10 - this.game.round
+          };
+        }
+        return p;
+      });
+      console.log("Cầu thủ " + this.game.currentGhostPlayer?.name + " đã làm ghost!" + " Điểm số: " + this.players.find((p: Player) => this.game && p.id === this.game.currentGhostPlayer?.id)?.score)
+    } else if (!this.game.currentGhostPlayer && this.game.failedPlayer) { // Nếu không có ghost và có người bị phạt trong lượt trước
+      if (this.isGhost(this.game.failedPlayer)) { // Nếu người bị phạt đã là ghost
+        this.game.currentGhostPlayer = getRandomElement(this.players.filter((p: Player) => !p.isGhost));
+        this.game.currentGhostPlayer = {
+          ...this.game.currentGhostPlayer,
+          isGhost: true,
+          score: 10 - this.game.round
+        };
+
+        // Cập nhật điểm số của cầu thủ
+        this.players = this.players.map((p: Player) => {
+          if (this.game && p.id === this.game.currentGhostPlayer?.id) {
+            return {
+              ...p,
+              isGhost: true,
+              score: 10 - this.game.round
+            };
+          }
+          return p;
+        });
+        console.log("Cầu thủ " + this.game.currentGhostPlayer?.name + " đã làm ghost!" + " Điểm số: " + this.players.find((p: Player) => this.game && p.id === this.game.currentGhostPlayer?.id)?.score)
+      } else { // Nếu người bị phạt không là ghost
+        const foundPlayer = this.players.find((p: Player) => p.id === this.game?.failedPlayer?.id);
+        if (foundPlayer) {
+          this.game.currentGhostPlayer = foundPlayer;
+          this.game.currentGhostPlayer = {
+            ...this.game.currentGhostPlayer,
+            isGhost: true,
+            score: 10 - this.game.round
+          };
+        }
+
+        // Cập nhật điểm số của cầu thủ
+        this.players = this.players.map((p: Player) => {
+          if (this.game && p.id === this.game.currentGhostPlayer?.id) {
+            return {
+              ...p,
+              isGhost: true,
+              score: 10 - this.game.round
+            };
+          }
+          return p;
+        });
+        console.log("Cầu thủ " + this.game.currentGhostPlayer?.name + " đã làm ghost!" + " Điểm số: " + this.players.find((p: Player) => this.game && p.id === this.game.currentGhostPlayer?.id)?.score)
+      }
+    }
+
+    let success = true;
   
-    if (this.isGameFinished()) {
+    // Chuyền bóng liên tục cho đến khi thất bại
+    while (success) {
+      if (!this.game.currentPlayer) {
+        this.game.currentPlayer = getRandomElement(this.players.filter((p: Player) => p.id !== this.game?.currentGhostPlayer?.id));
+      }
+      this.game.targetPlayer = getRandomElement(this.players.filter((p: Player) => p.id !== this.game?.currentPlayer?.id && p.id !== this.game?.currentGhostPlayer?.id));
+      const techniqueUsed: Technique = getRandomElement(this.game.currentPlayer?.techniques || []);
+  
+      success = calculatePassSuccess(
+        this.game.currentPlayer?.defenseScore || 0,
+        techniqueUsed.difficulty
+      );
+  
+      this.logs = [
+        ...this.logs,
+        {
+          round: this.game.round,
+          playerFrom: this.game.currentPlayer,
+          playerTo: this.game.targetPlayer,
+          techniqueUsed,
+          isSuccessful: success
+        },
+      ];
+  
+      if (!success) { // Nếu chuyền bóng thất bại
+        console.log(
+          `Cầu thủ ${this.game.currentPlayer?.name} thất bại khi sử dụng kỹ năng ${techniqueUsed.name} để chuyền bóng đến ${this.game.targetPlayer?.name}!`
+        );
+        // Kiểm tra xem người bị phạt có là ghost không
+        this.game.failedPlayer = this.game.currentPlayer;
+        this.game.currentPlayer = null;
+        this.game.targetPlayer = null;
+        this.game.currentGhostPlayer = null;
+        this.players = this.players.map((p: Player) => {
+          if (this.game && p.id === this.game.currentPlayer?.id) {
+            return {
+              ...p,
+              score: (10 - this.game.round) + p.score
+            }
+          }
+          return p;
+        })
+      } else { // Nếu chuyền bóng thành công
+        console.log(
+          `Cầu thủ ${this.game.currentPlayer?.name} thành công khi sử dụng kỹ năng ${techniqueUsed.name} để chuyền bóng đến ${this.game.targetPlayer?.name}!`
+        );
+        this.players = this.players.map((p: Player) => {
+          if (this.game && p.id === this.game.currentPlayer?.id) {
+            return {
+              ...p,
+              score: p.score + techniqueUsed.difficulty
+            };
+          }
+          return p;
+        })
+        this.game.currentPlayer = this.game.targetPlayer;
+        this.game.targetPlayer = null;
+        this.game.failedPlayer = null;
+      }
+    }
+  
+    if (this.game.round >= 10) {
+      this.players.map((p: Player) => {
+        console.log(`Cầu thủ ${p.name} tổng điểm: ${p.score}`)
+      })
       this.game.isFinished = true;
+      this.game.currentGhostPlayer = null;
+      this.game.failedPlayer = null;
+      console.log("Tất cả cầu thủ đã làm ghost. Trò chơi kết thúc.");
     }
   }
 
   isGameFinished(): boolean {
-    const activePlayers = this.players.filter((p) => !p.isEliminated);
-    return activePlayers.length === 1;
+    return this.game?.isFinished || false;
+  }
+
+  isGhost(player: Player): boolean {
+    return this.players.some((p: Player) => p.id === player.id && p.isGhost);
   }
 }
 // Tạo instance duy nhất

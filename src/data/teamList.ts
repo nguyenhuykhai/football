@@ -26,6 +26,7 @@ export const TEAM_LIST: Player[] = [
     orderOfPenalty: null,
     score: 0,
     id: 1,
+    isGhost: false,
   },
   {
     name: "Player 2",
@@ -36,6 +37,7 @@ export const TEAM_LIST: Player[] = [
     orderOfPenalty: null,
     score: 0,
     id: 2,
+    isGhost: false,
   },
   {
     name: "Player 3",
@@ -46,6 +48,7 @@ export const TEAM_LIST: Player[] = [
     orderOfPenalty: null,
     score: 0,
     id: 3,
+    isGhost: false,
   },
   {
     name: "Player 4",
@@ -56,6 +59,7 @@ export const TEAM_LIST: Player[] = [
     orderOfPenalty: null,
     score: 0,
     id: 4,
+    isGhost: false,
   },
   {
     name: "Player 5",
@@ -66,6 +70,7 @@ export const TEAM_LIST: Player[] = [
     orderOfPenalty: null,
     score: 0,
     id: 5,
+    isGhost: false,
   },
   {
     name: "Player 6",
@@ -76,6 +81,7 @@ export const TEAM_LIST: Player[] = [
     orderOfPenalty: null,
     score: 0,
     id: 6,
+    isGhost: false,
   },
   {
     name: "Player 7",
@@ -86,6 +92,7 @@ export const TEAM_LIST: Player[] = [
     orderOfPenalty: null,
     score: 0,
     id: 7,
+    isGhost: false,
   },
   {
     name: "Player 8",
@@ -96,6 +103,7 @@ export const TEAM_LIST: Player[] = [
     orderOfPenalty: null,
     score: 0,
     id: 8,
+    isGhost: false,
   },
   {
     name: "Player 9",
@@ -106,6 +114,7 @@ export const TEAM_LIST: Player[] = [
     orderOfPenalty: null,
     score: 0,
     id: 9,
+    isGhost: false,
   },
   {
     name: "Player 10",
@@ -116,5 +125,6 @@ export const TEAM_LIST: Player[] = [
     orderOfPenalty: null,
     score: 0,
     id: 10,
+    isGhost: false,
   },
 ];
