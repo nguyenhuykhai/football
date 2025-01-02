@@ -1,9 +1,5 @@
 # NGUYỄN HUY KHẢI - INTERVIEW ROUND 1
 
-<p align="center">
-  <img src="./public/assets/images/thumbnail.png" alt="Logo" width="200" height="200">
-</p>
-
 ## 📝 Mô tả
 Dưới đây là video demo của dự án của mình và giải thích chi tiết về dự án. Mong mọi người xem qua và để ý đến những điều mình có thể làm tốt hơn.
 
