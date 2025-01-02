@@ -1,6 +1,7 @@
-import { InfoCardProps } from 'src/common/components/InfoCard';
+
 import { formatAge, formatDate } from 'src/utils/dateUtils';
 import { Player } from '../types/player';
+import { InfoCardProps } from '../template/molecules/InfoCard';
 
 
 const usePlayerInfoFields = (player: Player) => {

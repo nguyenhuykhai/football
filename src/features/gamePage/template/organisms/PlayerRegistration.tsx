@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "src/store";
 import { initializePlayers, mockPlayers } from "src/store/slices/teamSlice";
 import { Player } from "src/features/gamePage/types/Player";
+import { ListRegister } from "../molecules/ListRegister";
 
 type FormValues = {
   name: string;
@@ -45,7 +46,7 @@ const PlayerRegistration: React.FC<{ onNextStep: () => void }> = ({ onNextStep }
     formState: { errors },
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
-    context: { players }, // Truyền danh sách cầu thủ vào context để dùng trong test validation
+    context: { players }
   });
 
   const playerNames: string[] = players.map((p) => p.name);
@@ -54,11 +55,11 @@ const PlayerRegistration: React.FC<{ onNextStep: () => void }> = ({ onNextStep }
     if (players.length >= 10) return;
 
     const updatedPlayerNames = [...playerNames, {name: data.name as string, jerseyNumber: data.jerseyNumber as number}];
-    dispatch(initializePlayers(updatedPlayerNames as {name: string, jerseyNumber: number}[])); // Gọi ViewModel qua Redux để cập nhật cầu thủ
+    dispatch(initializePlayers(updatedPlayerNames as {name: string, jerseyNumber: number}[]));
     reset();
 
     if (updatedPlayerNames.length === 10) {
-      onNextStep(); // Chuyển bước
+      onNextStep();
     }
   };
 
@@ -144,38 +145,7 @@ const PlayerRegistration: React.FC<{ onNextStep: () => void }> = ({ onNextStep }
         </div>
 
         {/* Danh sách cầu thủ */}
-        <div className="bg-white dark:bg-gray-800 shadow-md rounded p-4 transition-colors">
-          <h2 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">
-            Danh sách cầu thủ:
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {players.length > 0 && players.map((player, index) => (
-              <div
-                key={player.id}
-                className="p-4 border rounded bg-gray-50 dark:bg-gray-700 
-                border-gray-200 dark:border-gray-600 flex flex-col space-y-2 text-gray-900 dark:text-white"
-              >
-                <span>
-                  <strong>
-                    {index + 1}. {player.name}
-                  </strong>{" "}
-                  (# {player.jerseyNumber})
-                </span>
-                <span>Phòng thủ: {player.defenseScore}</span>
-                <span>
-                  Kỹ thuật:
-                  <ul className="ml-4 list-disc">
-                    {player.techniques.map((technique, i) => (
-                      <li key={i}>
-                        {technique.name} (Độ khó: {technique.difficulty})
-                      </li>
-                    ))}
-                  </ul>
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
+        <ListRegister players={players} />
       </div>
     </div>
   );

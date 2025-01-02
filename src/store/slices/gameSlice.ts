@@ -6,13 +6,13 @@ import gameViewModel from "src/features/gamePage/viewmodels/GameViewModel";
 interface GameState {
   currentStep: number;
   currentRound: number;
-  logs: GameLog[]; // Lưu lịch sử vòng chơi
+  logs: GameLog[];
 }
 
 const initialState: GameState = {
-  currentStep: 1, // Bước hiện tại
-  currentRound: 1, // Lượt chơi hiện tại
-  logs: [], // Lịch sử chơi
+  currentStep: 1,
+  currentRound: 1,
+  logs: [],
 };
 
 const gameSlice = createSlice({

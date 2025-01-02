@@ -1,7 +1,7 @@
 import playerData from 'src/data/playerInfo.json';
 import matchData from 'src/data/matchList.json';
-import { Player } from 'src/features/mainScreen/types/player';
-import { MatchEvent } from 'src/features/mainScreen/types/match';
+import { Player } from '../types/player';
+import { MatchEvent } from '../types/match';
 
 export const fetchPlayer = async (): Promise<Player> => {
   return new Promise((resolve) => {

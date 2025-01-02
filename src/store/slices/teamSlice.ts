@@ -1,4 +1,3 @@
-// store/slices/teamSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Player } from "src/features/gamePage/types/Player";
 import gameViewModel from "src/features/gamePage/viewmodels/GameViewModel";
@@ -8,7 +7,7 @@ interface TeamState {
 }
 
 const initialState: TeamState = {
-  players: [], // Danh sách cầu thủ
+  players: [],
 };
 
 const teamSlice = createSlice({
@@ -16,16 +15,16 @@ const teamSlice = createSlice({
   initialState,
   reducers: {
     initializePlayers(state, action: PayloadAction<{name: string, jerseyNumber: number}[]>): void {
-      gameViewModel.initializeGame(action.payload); // Dùng ViewModel để khởi tạo cầu thủ
-      state.players = gameViewModel.players; // Cập nhật danh sách cầu thủ vào Redux
+      gameViewModel.initializeGame(action.payload);
+      state.players = gameViewModel.players;
     },
     mockPlayers(state) {
       gameViewModel.mockPlayers();
-      state.players = gameViewModel.players; // Cập nhật danh sách cầu thủ vào Redux
+      state.players = gameViewModel.players;
     },
     resetPlayers(state) {
-      gameViewModel.players = []; // Reset trong ViewModel
-      state.players = []; // Reset trong Redux
+      gameViewModel.players = [];
+      state.players = [];
     },
   },
 });

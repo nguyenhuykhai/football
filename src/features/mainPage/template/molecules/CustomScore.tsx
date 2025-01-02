@@ -49,7 +49,6 @@ export const CustomScore: React.FC<CustomScoreProps> = ({
         </span>
       </div>
 
-      {/* Rating indicator */}
       <span className="px-1.5 py-0.5 md:px-2 md:py-1 text-[10px] md:text-xs text-white font-semibold bg-orange-500 rounded">
         8.2
       </span>

@@ -9,7 +9,7 @@ export interface InfoCardProps {
   className?: string;
 }
 
-const InfoCard: React.FC<InfoCardProps> = ({
+export const InfoCard: React.FC<InfoCardProps> = ({
   title,
   data,
   imageSrc,
@@ -43,5 +43,3 @@ const InfoCard: React.FC<InfoCardProps> = ({
     </div>
   );
 };
-
-export default InfoCard;

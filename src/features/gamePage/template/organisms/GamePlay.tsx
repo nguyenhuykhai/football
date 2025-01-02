@@ -5,6 +5,8 @@ import { playRound } from "src/store/slices/gameSlice";
 import gameViewModel from "src/features/gamePage/viewmodels/GameViewModel";
 import RoundDetailsDialog from "../molecules/RoundDetailsDialog";
 import SummaryChart from "../molecules/SummaryChart";
+import { ListPlayers } from "../molecules/ListPlayers";
+import { RoundHistory, RoundSummary } from "../molecules/RoundHistory";
 
 const GamePlay: React.FC<{ onNextStep: () => void }> = ({ onNextStep }) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -16,7 +18,7 @@ const GamePlay: React.FC<{ onNextStep: () => void }> = ({ onNextStep }) => {
   const players = gameViewModel.players || [];
   const sortedPlayers = [...players].sort((a, b) => b.score - a.score);
 
-  const roundSummaries = Array.from(new Set(logs.map((log) => log.round)))
+  const roundSummaries: RoundSummary[] = Array.from(new Set(logs.map((log) => log.round)))
     .sort((a, b) => b - a)
     .map((round) => {
       const roundLogs = logs.filter((log) => log.round === round);
@@ -68,82 +70,10 @@ const GamePlay: React.FC<{ onNextStep: () => void }> = ({ onNextStep }) => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Player list */}
-        <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-4 border border-gray-200 dark:border-gray-700">
-          <h2 className="text-xl font-bold mb-4">Danh sách cầu thủ</h2>
-          <div className="overflow-y-auto max-h-[600px] pr-2 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600">
-            <ul className="space-y-2">
-              {sortedPlayers.map((player, index) => (
-                <li
-                  key={player.id}
-                  className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg flex items-center justify-between bg-gray-50 dark:bg-gray-700"
-                >
-                  <div className="flex items-center gap-2">
-                    <span className="font-medium">{index + 1}.</span>
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="font-semibold">{player.name}</span>
-                        {player.isGhost && (
-                          <span className="px-2 py-1 text-xs font-semibold bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-100 rounded-full">
-                            Ghost
-                          </span>
-                        )}
-                      </div>
-                      <span className="text-sm text-gray-600 dark:text-gray-400">
-                        #{player.jerseyNumber}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="font-bold">{player.score} điểm</div>
-                    {[0, 1, 2].includes(index) && (
-                      <span
-                        className={`text-sm ${
-                          index === 0
-                            ? "text-yellow-600 dark:text-yellow-400"
-                            : index === 1
-                            ? "text-gray-600 dark:text-gray-400"
-                            : "text-orange-600 dark:text-orange-400"
-                        }`}
-                      >
-                        Top {index + 1}
-                      </span>
-                    )}
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        <ListPlayers players={sortedPlayers} />
 
         {/* Round history */}
-        <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-4 border border-gray-200 dark:border-gray-700">
-          <h2 className="text-xl font-bold mb-4">Lịch sử lượt chơi</h2>
-          <div className="overflow-y-auto max-h-[600px] pr-2 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600">
-            <div className="space-y-3">
-              {roundSummaries.map((summary) => (
-                <div
-                  key={summary.round}
-                  className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-700 flex items-center justify-between"
-                >
-                  <div>
-                    <h3 className="font-semibold">Lượt {summary.round}</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
-                      Số lần chuyền: {summary.totalPasses}
-                      {summary.failedPlayer &&
-                        ` - Thất bại: ${summary.failedPlayer.name}`}
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => setSelectedRound(summary.round)}
-                    className="px-3 py-1 text-sm bg-blue-600 dark:bg-blue-500 text-white rounded hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors"
-                  >
-                    Chi tiết
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        <RoundHistory roundSummaries={roundSummaries} setSelectedRound={setSelectedRound} />
       </div>
 
       {/* Round details dialog */}

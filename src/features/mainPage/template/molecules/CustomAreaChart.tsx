@@ -11,10 +11,16 @@ import {
 } from "recharts";
 import { Player } from "../../types/player";
 import { formatNumber } from "src/utils/numberUtils";
-// import { CustomizedLabel } from "../atoms/CustomizedLabel";
+
+export type CustomAreaChartData = {
+  time: string;
+  values: number;
+  imageSrc: string;
+  imageAlt: string;
+};
 
 export type CustomAreaChartProps = {
-  data: { time: string; values: number; imageSrc: string; imageAlt: string }[];
+  data: CustomAreaChartData[];
   player: Player;
 };
 

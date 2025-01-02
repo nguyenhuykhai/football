@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { MatchEvent } from 'src/features/mainScreen/types/match';
+import { MatchEvent } from 'src/features/mainPage/types/match';
 
 interface MatchState {
   matches: MatchEvent[];
