@@ -19,7 +19,6 @@ interface SummaryChartProps {
 
 interface TechniqueStats {
   name: string;
-  slug: string;
   successful: number;
   failed: number;
   total: number;
@@ -38,7 +37,6 @@ const SummaryChart: React.FC<SummaryChartProps> = ({
       if (!acc[techniqueName]) {
         acc[techniqueName] = {
           name: techniqueName,
-          slug: log.techniqueUsed.slug,
           successful: 0,
           failed: 0,
           total: 0,
