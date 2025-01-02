@@ -1,12 +1,12 @@
 # NGUYỄN HUY KHẢI - INTERVIEW ROUND 1
+[![Video Demo](./public/assets/images/thumbnail.png)](https://vimeo.com/1043381501)
 
 ## 📝 Mô tả
 Dưới đây là video demo của dự án của mình và giải thích chi tiết về dự án. Mong mọi người xem qua và để ý đến những điều mình có thể làm tốt hơn.
 
 ## 🎥 Video Demo
-Xem video hướng dẫn chi tiết tại đây:
-
-[![Video Demo](./public/assets/images/thumbnail.png)](https://vimeo.com/1043381501)
+Xem video giải thích chi tiết tại đây:
+- Link: https://vimeo.com/1043381501
 
 ## ⚙️ Cài đặt
 
