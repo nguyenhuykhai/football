@@ -11,7 +11,7 @@ export const MatchHistory: React.FC<MatchHistoryProps> = ({ matches }) => {
   return (
     <div className="w-full mt-4 p-2 md:p-2.5 bg-white dark:bg-[#020C20] rounded-lg">
       <h2 className="text-base md:text-lg font-semibold mb-2 md:mb-4 dark:text-white">MATCHES</h2>
-      <div className="space-y-2">
+      <div className="space-y-2 overflow-y-scroll max-h-96 scroll-smooth no-scrollbar">
         {matches.map((match, index) => (
           <CustomCard
             key={index}
